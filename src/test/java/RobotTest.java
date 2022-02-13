@@ -1,4 +1,5 @@
 import enums.OrientationType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,22 +16,58 @@ class RobotTest {
     @Test
     void moveForwardFromNorth()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid());
+
+        //Act
+        robot.moveForward();
+
+        //Assert
+        assertTrue(robot.GridPosition[1] == 2);
     }
     @Test
     void moveForwardFromEast()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid());
+
+        //Act
+        robot.moveForward();
+
+        //Assert
+        assertTrue(robot.GridPosition[0] == 2);
     }
     @Test
     void moveForwardFromSouth()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid());
+
+        //Act
+        robot.moveForward();
+
+        //Assert
+        assertTrue(robot.GridPosition[1] == 0);
     }
     @Test
     void moveForwardFromWest()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid());
+
+        //Act
+        robot.moveForward();
+
+        //Assert
+        assertTrue(robot.GridPosition[0] == 0);
     }
 
     @Test

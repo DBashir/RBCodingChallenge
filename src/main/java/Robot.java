@@ -14,6 +14,22 @@ public class Robot {
     }
 
     protected int[] moveForward() {
+        switch(this.Orientation)
+        {
+            case N:
+                this.GridPosition[1] += 1;
+                break;
+            case E:
+                this.GridPosition[0] += 1;
+                break;
+            case S:
+                this.GridPosition[1] -= 1;
+                break;
+            case W:
+                this.GridPosition[0] -= 1;
+                break;
+
+        }
         return this.GridPosition;
     }
 
