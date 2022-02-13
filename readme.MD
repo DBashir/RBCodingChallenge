@@ -30,4 +30,4 @@ In Hindsight:
 - Increase code coverage % for edge cases & scent logic
 
 Troubleshooting:
-- If the project fails to build, you may need to download IntelliJ IDE (or equivalent) and manually change the JDK version to 16 & the Gradle version to 7.0.1
+- If the project fails to build, you may need to download IntelliJ IDE (or equivalent) and manually change the JDK version to 17 & the Gradle version to 7.0.1
