@@ -64,6 +64,23 @@ public class Robot {
     }
 
     protected Robot processInstructions() {
+        for (char instruction : this.Instruction)
+        {
+            switch(instruction)
+            {
+                case 'F':
+                    this.GridPosition = moveForward();
+                    break;
+                case 'L':
+                    this.Orientation = turnLeft();
+                    break;
+                case 'R':
+                    this.Orientation = turnRight();
+                    break;
+                default:
+                    throw new RuntimeException("Unknown instruction value: " + instruction);
+            }
+        }
         return this;
     }
 }

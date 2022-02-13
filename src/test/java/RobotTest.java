@@ -9,7 +9,7 @@ class RobotTest {
     void constructRobot()
     {
         int[] currentPosition = new int[]{1,1};
-        Robot robot = new Robot(currentPosition, OrientationType.N, "RFRFRF", new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.N, "RFRFRF", new Grid(5,3 ));
         assertNotNull(robot);
     }
 
@@ -19,7 +19,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5,3));
 
         //Act
         robot.moveForward();
@@ -33,7 +33,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid(5,3));
 
         //Act
         robot.moveForward();
@@ -47,7 +47,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid(5,3));
 
         //Act
         robot.moveForward();
@@ -61,7 +61,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid(5,3));
 
         //Act
         robot.moveForward();
@@ -76,7 +76,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnLeft();
@@ -90,7 +90,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnLeft();
@@ -104,7 +104,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RLRLRLF";
-        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnLeft();
@@ -118,7 +118,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RLRLRLF";
-        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnLeft();
@@ -133,7 +133,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFLRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnRight();
@@ -147,7 +147,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnRight();
@@ -161,7 +161,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnRight();
@@ -175,7 +175,7 @@ class RobotTest {
         //Arrange
         int[] currentPosition = new int[]{1,1};
         String instructions = "RFRFRFRF";
-        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid());
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid(5,3));
 
         //Act
         robot.Orientation = robot.turnRight();
@@ -185,9 +185,37 @@ class RobotTest {
     }
 
     @Test
-    void processInstructions()
+    void processInstructionsRightForward()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid(5,3));
+
+        //Act
+        robot.processInstructions();
+
+        //Assert
+        assertTrue(robot.GridPosition[0] == 1);
+        assertTrue(robot.GridPosition[1] == 1);
+        assertTrue(robot.Orientation == OrientationType.E);
+    }
+
+    @Test
+    void processInstructionsLeftForward()
+    {
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "LFLFLFLF";
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid(5,3));
+
+        //Act
+        robot.processInstructions();
+
+        //Assert
+        assertTrue(robot.GridPosition[0] == 1);
+        assertTrue(robot.GridPosition[1] == 1);
+        assertTrue(robot.Orientation == OrientationType.E);
     }
 
 }
