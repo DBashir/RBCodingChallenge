@@ -1,36 +1,44 @@
 import enums.OrientationType;
 
 public class Robot {
-    public int[] GridPosition;
+    public int[] CurrentPosition;
     public OrientationType Orientation;
     public char[] Instruction;
     public Grid Grid;
+    public boolean hasScent;
 
     public Robot(int[] position, OrientationType orientation, String instruction, Grid grid) {
-        this.GridPosition = position;
+        if(instruction.length() > 100) throw new RuntimeException("Please enter instructions with 100 characters or less");
+        this.CurrentPosition = position;
         this.Orientation = orientation;
         this.Instruction = instruction.toCharArray();
         this.Grid = grid;
+        this.processInstructions();
     }
 
     protected int[] moveForward() {
-        switch(this.Orientation)
-        {
-            case N:
-                this.GridPosition[1] += 1;
-                break;
-            case E:
-                this.GridPosition[0] += 1;
-                break;
-            case S:
-                this.GridPosition[1] -= 1;
-                break;
-            case W:
-                this.GridPosition[0] -= 1;
-                break;
-
+        if(!this.hasScent) {
+            switch(this.Orientation) {
+                case N:
+                    this.CurrentPosition[1] += 1;
+                    checkScent();
+                    break;
+                case E:
+                    this.CurrentPosition[0] += 1;
+                    checkScent();
+                    break;
+                case S:
+                    this.CurrentPosition[1] -= 1;
+                    checkScent();
+                    break;
+                case W:
+                    this.CurrentPosition[0] -= 1;
+                    checkScent();
+                    break;
+            }
         }
-        return this.GridPosition;
+        checkScent();
+        return this.CurrentPosition;
     }
 
     protected OrientationType turnLeft() {
@@ -69,7 +77,7 @@ public class Robot {
             switch(instruction)
             {
                 case 'F':
-                    this.GridPosition = moveForward();
+                    this.CurrentPosition = moveForward();
                     break;
                 case 'L':
                     this.Orientation = turnLeft();
@@ -83,4 +91,47 @@ public class Robot {
         }
         return this;
     }
+
+    protected void checkScent()
+    {
+        int[] position = new int[]{CurrentPosition[0], CurrentPosition[1]};
+
+        if(this.CurrentPosition[0] > this.Grid.XCoord ||
+                this.CurrentPosition[1] > this.Grid.YCoord ||
+                this.CurrentPosition[0] < 0 ||
+                this.CurrentPosition[1] < 0)
+        {
+            this.hasScent = true;
+            if(doesGridContainScent(position)) this.hasScent = false;
+            this.Grid.ListOfScents.add(position);
+
+            switch (this.Orientation)
+            {
+                case N:
+                    this.CurrentPosition[1] -= 1;
+                    break;
+                case E:
+                    this.CurrentPosition[0] -= 1;
+                    break;
+                case S:
+                    this.CurrentPosition[1] += 1;
+                    break;
+                case W:
+                    this.CurrentPosition[0] += 1;
+                    break;
+            }
+        }
+    }
+
+    private boolean doesGridContainScent(int[] position)
+    {
+        for (int i = 0; i < this.Grid.ListOfScents.size(); i++)
+        {
+            if(this.Grid.ListOfScents.get(i)[0] == position[0] && this.Grid.ListOfScents.get(i)[1] == position[1]) return true;
+        }
+        return false;
+    }
+
+
+
 }

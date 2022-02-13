@@ -25,7 +25,7 @@ class RobotTest {
         robot.moveForward();
 
         //Assert
-        assertTrue(robot.GridPosition[1] == 2);
+        assertTrue(robot.CurrentPosition[1] == 2);
     }
     @Test
     void moveForwardFromEast()
@@ -39,7 +39,7 @@ class RobotTest {
         robot.moveForward();
 
         //Assert
-        assertTrue(robot.GridPosition[0] == 2);
+        assertTrue(robot.CurrentPosition[0] == 2);
     }
     @Test
     void moveForwardFromSouth()
@@ -53,7 +53,7 @@ class RobotTest {
         robot.moveForward();
 
         //Assert
-        assertTrue(robot.GridPosition[1] == 0);
+        assertTrue(robot.CurrentPosition[1] == 0);
     }
     @Test
     void moveForwardFromWest()
@@ -67,7 +67,7 @@ class RobotTest {
         robot.moveForward();
 
         //Assert
-        assertTrue(robot.GridPosition[0] == 0);
+        assertTrue(robot.CurrentPosition[0] == 0);
     }
 
     @Test
@@ -132,7 +132,7 @@ class RobotTest {
     {
         //Arrange
         int[] currentPosition = new int[]{1,1};
-        String instructions = "RFRFLRFRF";
+        String instructions = "";
         Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5,3));
 
         //Act
@@ -196,8 +196,8 @@ class RobotTest {
         robot.processInstructions();
 
         //Assert
-        assertTrue(robot.GridPosition[0] == 1);
-        assertTrue(robot.GridPosition[1] == 1);
+        assertTrue(robot.CurrentPosition[0] == 1);
+        assertTrue(robot.CurrentPosition[1] == 1);
         assertTrue(robot.Orientation == OrientationType.E);
     }
 
@@ -213,9 +213,97 @@ class RobotTest {
         robot.processInstructions();
 
         //Assert
-        assertTrue(robot.GridPosition[0] == 1);
-        assertTrue(robot.GridPosition[1] == 1);
+        assertTrue(robot.CurrentPosition[0] == 1);
+        assertTrue(robot.CurrentPosition[1] == 1);
         assertTrue(robot.Orientation == OrientationType.E);
+    }
+
+    @Test
+    void addScentAfterMaximumXValue()
+    {
+        //Arrange
+        int[] currentPosition = new int[]{5,1};
+        String instructions = "F";
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid(5, 3));
+
+        //Act
+        robot.processInstructions();
+
+        //Assert
+        Assertions.assertTrue(robot.CurrentPosition[0] == 5);
+        Assertions.assertTrue(robot.CurrentPosition[1] == 1);
+        Assertions.assertTrue(robot.hasScent);
+    }
+
+    @Test
+    void addScentAfterMaximumYValue()
+    {
+        //Arrange
+        int[] currentPosition = new int[]{1,3};
+        String instructions = "F";
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5, 3));
+
+        //Act
+        robot.processInstructions();
+
+        //Assert
+        Assertions.assertTrue(robot.CurrentPosition[0] == 1);
+        Assertions.assertTrue(robot.CurrentPosition[1] == 3);
+        Assertions.assertTrue(robot.hasScent);
+    }
+
+    @Test
+    void addScentAfterMinimumXValue()
+    {
+        //Arrange
+        int[] currentPosition = new int[]{0,0};
+        String instructions = "FFFF";
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid(5, 3));
+
+        //Act
+        robot.processInstructions();
+
+        //Assert
+        Assertions.assertTrue(robot.CurrentPosition[0] == 0);
+        Assertions.assertTrue(robot.CurrentPosition[1] == 0);
+        Assertions.assertTrue(robot.hasScent);
+    }
+
+    @Test
+    void addScentAfterMinimumYValue()
+    {
+        //Arrange
+        int[] currentPosition = new int[]{0,0};
+        String instructions = "F";
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid(5, 3));
+
+        //Act
+        robot.processInstructions();
+
+        //Assert
+        Assertions.assertTrue(robot.CurrentPosition[0] == 0);
+        Assertions.assertTrue(robot.CurrentPosition[1] == 0);
+        Assertions.assertTrue(robot.hasScent);
+    }
+
+    @Test
+    void checkGridScent()
+    {
+        //Arrange
+        int[] currentPosition = new int[]{3,3};
+
+        int[] gridScent = new int[]{3,4};
+        String instructions = "F";
+        Robot fallenRobot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5, 3));
+        Robot goodRobot = new Robot(currentPosition, OrientationType.N, instructions, new Grid(5,3));
+        fallenRobot.Grid.ListOfScents.add(gridScent);
+
+        //Act
+        fallenRobot.processInstructions();
+        goodRobot.processInstructions();
+
+        //Assert
+        assertTrue(goodRobot.CurrentPosition[1] != 4);
     }
 
 }
