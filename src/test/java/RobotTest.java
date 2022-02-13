@@ -73,43 +73,115 @@ class RobotTest {
     @Test
     void moveLeftFromNorth()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnLeft();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.W));
     }
     @Test
     void moveLeftFromEast()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnLeft();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.N));
     }
     @Test
     void moveLeftFromSouth()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RLRLRLF";
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnLeft();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.E));
     }
     @Test
     void moveLeftFromWest()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RLRLRLF";
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnLeft();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.S));
     }
 
     @Test
     void moveRightFromNorth()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFLRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.N, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnRight();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.E));
     }
     @Test
     void moveRightFromEast()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.E, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnRight();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.S));
     }
     @Test
     void moveRightFromSouth()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.S, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnRight();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.W));
     }
     @Test
     void moveRightFromWest()
     {
-        assertTrue(false);
+        //Arrange
+        int[] currentPosition = new int[]{1,1};
+        String instructions = "RFRFRFRF";
+        Robot robot = new Robot(currentPosition, OrientationType.W, instructions, new Grid());
+
+        //Act
+        robot.Orientation = robot.turnRight();
+
+        //Assert
+        assertTrue(robot.Orientation.equals(OrientationType.N));
     }
 
     @Test
