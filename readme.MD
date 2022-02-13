@@ -28,3 +28,6 @@ In Hindsight:
 - Abstraction for Robot to seperate different types of robots (if required)
 - `CurrentPosition` would be better suited as a Coordinate object that stores X and Y int values rather than storing them in an int array
 - Increase code coverage % for edge cases & scent logic
+
+Troubleshooting:
+- If the project fails to build, you may need to download IntelliJ IDE (or equivalent) and manually change the JDK version to 16 & the Gradle version to 7.0.1
