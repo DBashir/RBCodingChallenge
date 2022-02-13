@@ -1,39 +1,42 @@
 import enums.OrientationType;
 
+import java.util.Arrays;
+
 public class Robot {
+
     public int[] CurrentPosition;
     public OrientationType Orientation;
     public char[] Instruction;
     public Grid Grid;
     public boolean hasScent;
 
-    public Robot(int[] position, OrientationType orientation, String instruction, Grid grid) {
+    public Robot(int[] position, OrientationType orientation, String instruction, Grid grid)
+    {
         if(instruction.length() > 100) throw new RuntimeException("Please enter instructions with 100 characters or less");
         this.CurrentPosition = position;
         this.Orientation = orientation;
         this.Instruction = instruction.toCharArray();
         this.Grid = grid;
+        this.hasScent = false;
         this.processInstructions();
     }
 
-    protected int[] moveForward() {
-        if(!this.hasScent) {
-            switch(this.Orientation) {
+    protected int[] moveForward()
+    {
+        if(!this.hasScent)
+        {
+            switch (this.Orientation) {
                 case N:
                     this.CurrentPosition[1] += 1;
-                    checkScent();
                     break;
                 case E:
                     this.CurrentPosition[0] += 1;
-                    checkScent();
                     break;
                 case S:
                     this.CurrentPosition[1] -= 1;
-                    checkScent();
                     break;
                 case W:
                     this.CurrentPosition[0] -= 1;
-                    checkScent();
                     break;
             }
         }
@@ -41,7 +44,8 @@ public class Robot {
         return this.CurrentPosition;
     }
 
-    protected OrientationType turnLeft() {
+    protected OrientationType turnLeft()
+    {
         switch(this.Orientation)
         {
             case N:
@@ -56,7 +60,8 @@ public class Robot {
         return this.Orientation;
     }
 
-    protected OrientationType turnRight() {
+    protected OrientationType turnRight()
+    {
         switch(this.Orientation)
         {
             case N:
@@ -71,22 +76,25 @@ public class Robot {
         return this.Orientation;
     }
 
-    protected Robot processInstructions() {
+    protected Robot processInstructions()
+    {
         for (char instruction : this.Instruction)
         {
-            switch(instruction)
+            if(!hasScent)
             {
-                case 'F':
-                    this.CurrentPosition = moveForward();
-                    break;
-                case 'L':
-                    this.Orientation = turnLeft();
-                    break;
-                case 'R':
-                    this.Orientation = turnRight();
-                    break;
-                default:
-                    throw new RuntimeException("Unknown instruction value: " + instruction);
+                switch (instruction) {
+                    case 'F':
+                        this.CurrentPosition = moveForward();
+                        break;
+                    case 'L':
+                        this.Orientation = turnLeft();
+                        break;
+                    case 'R':
+                        this.Orientation = turnRight();
+                        break;
+                    default:
+                        throw new RuntimeException("Unknown instruction value: " + instruction);
+                }
             }
         }
         return this;
@@ -133,5 +141,9 @@ public class Robot {
     }
 
 
-
+    public String toString()
+    {
+        String isLost = this.hasScent ? "LOST" : "";
+        return String.format("%s %s %s", Arrays.toString(this.CurrentPosition), this.Orientation.toString(), isLost);
+    }
 }
